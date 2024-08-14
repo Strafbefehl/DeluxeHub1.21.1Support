@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fun.lewisdev</groupId>
-    <artifactId>DeluxeHub</artifactId>
-    <version>3.5.4</version>
+    <artifactId>DeluxeHubReloaded</artifactId>
+    <version>3.5.5</version>
     <packaging>jar</packaging>
 
-    <name>DeluxeHub</name>
+    <name>DeluxeHubReloaded</name>
     <description>An all-in-one hub management system</description>
     <url>https://www.spigotmc.org/resources/deluxehub.49425/</url>
 
@@ -17,6 +17,9 @@
         <developer>
             <name>ItsLewizzz</name>
             <url>https://lewisdev.fun</url>
+        </developer>
+        <developer>
+            <name>Strafbefehl</name>
         </developer>
     </developers>
 
