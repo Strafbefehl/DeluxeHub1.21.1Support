@@ -17,6 +17,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 import java.util.UUID;
@@ -58,24 +59,28 @@ public class DoubleJump extends Module {
         else if (inDisabledWorld(player.getLocation())) return;
         else if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) return;
         else if (!event.isFlying()) return;
-        else if (player.getWorld().getBlockAt(player.getLocation().subtract(0, 2, 0)).getType() == Material.AIR) {
-            event.setCancelled(true);
-            return;
-        }
-
         // All pre-checks passed, now handle double jump
-        event.setCancelled(true);
+
 
         // Check for cooldown
-        UUID uuid = player.getUniqueId();
-        if (!tryCooldown(uuid, CooldownType.DOUBLE_JUMP, cooldownDelay)) {
-            Messages.DOUBLE_JUMP_COOLDOWN.send(player, "%time%", getCooldown(uuid, CooldownType.DOUBLE_JUMP));
-            return;
-        }
+//        UUID uuid = player.getUniqueId();
+//        if (!tryCooldown(uuid, CooldownType.DOUBLE_JUMP, cooldownDelay)) {
+//            Messages.DOUBLE_JUMP_COOLDOWN.send(player, "%time%", getCooldown(uuid, CooldownType.DOUBLE_JUMP));
+//            return;
+//        }
 
         // Execute double jump
         player.setVelocity(player.getLocation().getDirection().multiply(launch).setY(launchY));
         executeActions(player, actions);
+        event.setCancelled(true);
+        player.setAllowFlight(false);
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                player.setAllowFlight(true);
+                event.setCancelled(true);
+            }
+        }.runTaskLater(getPlugin(), 20 * cooldownDelay);
     }
 
     @EventHandler

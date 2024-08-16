@@ -49,8 +49,8 @@ Messages:
   SCOREBOARD:
     TOGGLE: "%prefix% &aYou have %value% the scoreboard"
 
-  DOUBLE_JUMP:
-    COOLDOWN_ACTIVE: "%prefix% &cYou must wait &e%time%s &cto Double Jump again!"
+#  DOUBLE_JUMP:
+#    COOLDOWN_ACTIVE: "%prefix% &cYou must wait &e%time%s &cto Double Jump again!"  Deprecated
 
   WORLD_EVENT_MODIFICATIONS:
     ITEM_DROP: "%prefix% &cYou are not allowed to drop items."
