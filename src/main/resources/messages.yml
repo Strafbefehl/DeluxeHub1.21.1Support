@@ -4,7 +4,7 @@
 
 Messages:
   GENERAL:
-    PREFIX: "&dDeluxeHub &8❙"
+    PREFIX: "&dDeluxeHubReloaded &8❙"
     NO_PERMISSION: "%prefix% &cYou are forbidden to use this."
     CUSTOM_COMMAND_NO_PERMISSION: "&cYou are not allowed to execute this command."
     INVALID_PLAYER: "%prefix% &c%player% is not online!"

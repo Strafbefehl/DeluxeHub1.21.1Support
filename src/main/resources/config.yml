@@ -91,7 +91,7 @@ scoreboard:
     enabled: true
     rate: 200 # In ticks (20 ticks = 1 second)
 
-  title: "&d&lDeluxeHub 3 &7(%online%/%online_max%)"
+  title: "&d&lDeluxeHubReloaded 3 &7(%online%/%online_max%)"
   lines:
     - "&7&m----------------------"
     - "&e&lPlayer:"
@@ -117,7 +117,7 @@ tablist:
   # Modify the header of the tablist
   header:
     - ""
-    - "&d&lDeluxeHub &7(%online%/%online_max%)"
+    - "&d&lDeluxeHubReloaded &7(%online%/%online_max%)"
     - ""
 
   # Modify the footer of the tablist
@@ -157,7 +157,7 @@ announcements:
     test2:
       - "&r"
       - "<center>&e&lANNOUNCEMENT</center>"
-      - "<center>&7This plugin was created by &eItsLewizzz</center>"
+      - "<center>&7This plugin was created by &eStrafbefehl and ItsLewizzz</center>"
       - "&r"
     test3:
       - "&r"
@@ -290,7 +290,7 @@ join_events:
   - "[MESSAGE] &r  &3&lSTORE &fstore.examplemc.net"
   - "[MESSAGE] &r  &9&lDISCORD &fdiscord.examplemc.net"
   - "[MESSAGE] &r"
-  - "[MESSAGE] &r            &7&oPowered By DeluxeHub"
+  - "[MESSAGE] &r            &7&oPowered By DeluxeHubReloaded"
   - "[MESSAGE] &8&m+---------------***---------------+"
   - "[TITLE] &b&lWELCOME;&f%player%;1;2;1"
   - "[SOUND] ENTITY_PLAYER_LEVELUP"

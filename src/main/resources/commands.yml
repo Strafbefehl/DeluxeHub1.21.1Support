@@ -20,7 +20,7 @@ custom_commands:
       - ci
     actions:
       - '[CONSOLE] minecraft:clear %player%'
-      - '[MESSAGE] &dDeluxeHub &eYour inventory has been cleared!'
+      - '[MESSAGE] &dDeluxeHubReloaded &eYour inventory has been cleared!'
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # | DELUXEHUB COMMANDS                       |
