@@ -6,12 +6,12 @@
 
     <groupId>fun.lewisdev</groupId>
     <artifactId>DeluxeHubReloaded</artifactId>
-    <version>3.5.7</version>
+    <version>3.5.8</version>
     <packaging>jar</packaging>
 
     <name>DeluxeHubReloaded</name>
     <description>An all-in-one hub management system</description>
-    <url>https://www.spigotmc.org/resources/deluxehub.49425/</url>
+    <url>https://www.spigotmc.org/resources/118904/</url>
 
     <developers>
         <developer>
