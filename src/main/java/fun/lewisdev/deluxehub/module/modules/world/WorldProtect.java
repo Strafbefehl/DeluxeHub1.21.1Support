@@ -371,4 +371,15 @@ public class WorldProtect extends Module {
             Messages.EVENT_PLAYER_PVP.send(event.getDamager());
         }
     }
+
+    // Prevent books being taken from lecterns
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onEntityInteract(PlayerTakeLecternBookEvent event) {
+        if (!blockInteract || inDisabledWorld(event.getLectern().getLocation())) return;
+        Entity player = event.getPlayer();
+
+        if (player.hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
+
+        event.setCancelled(true);
+    }
 }
