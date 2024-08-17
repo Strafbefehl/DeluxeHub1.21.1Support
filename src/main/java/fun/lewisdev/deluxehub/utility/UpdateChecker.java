@@ -51,7 +51,6 @@ public class UpdateChecker {
                         cancel();
                         return;
                     }
-
                     if (localPluginVersion.equals(spigotPluginVersion)) return;
 
                     plugin.getLogger().info("An update for DeluxeHubReloaded (v%VERSION%) is available at:".replace("%VERSION%", spigotPluginVersion));
@@ -62,8 +61,15 @@ public class UpdateChecker {
                         public void onPlayerJoin(final PlayerJoinEvent event) {
                             final Player player = event.getPlayer();
                             if (!player.hasPermission(UPDATE_PERM)) return;
-                            player.sendMessage(TextUtil.color("&7An update (v%VERSION%) for DeluxeHub is available at:".replace("%VERSION%", spigotPluginVersion)));
-                            player.sendMessage(TextUtil.color("&6https://www.spigotmc.org/resources/" + ID));
+
+                            // Delay the message by 3 seconds
+                            new BukkitRunnable() {
+                                @Override
+                                public void run() {
+                                    player.sendMessage(TextUtil.color("&7An update (v%VERSION%) for DeluxeHubReloaded is available at:".replace("%VERSION%", spigotPluginVersion)));
+                                    player.sendMessage(TextUtil.color("&6https://www.spigotmc.org/resources/" + ID));
+                                }
+                            }.runTaskLater(plugin, 60L); // 60 ticks = 3 seconds
                         }
                     }, plugin));
 

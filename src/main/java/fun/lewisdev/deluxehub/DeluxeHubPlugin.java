@@ -102,7 +102,7 @@ public class DeluxeHubPlugin extends JavaPlugin {
         actionManager = new ActionManager(this);
 
         // Load update checker (if enabled)
-        if (getConfigManager().getFile(ConfigType.SETTINGS).getConfig().getBoolean("update-check"))
+        if (getConfigManager().getFile(ConfigType.SETTINGS).getConfig().getBoolean("check-updates"))
             new UpdateChecker(this).checkForUpdate();
 
         // Register BungeeCord channels
