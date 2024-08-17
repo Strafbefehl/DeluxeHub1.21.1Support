@@ -361,13 +361,14 @@ public class WorldProtect extends Module {
         if (!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
+
         if (inDisabledWorld(player.getLocation())) return;
 
         if (event.getDamager().hasPermission(Permissions.EVENT_PLAYER_PVP.getPermission())) return;
 
         event.setCancelled(true);
-        if (tryCooldown(player.getUniqueId(), CooldownType.PLAYER_PVP, 3)) {
-            Messages.EVENT_PLAYER_PVP.send(player);
+        if (tryCooldown(event.getDamager().getUniqueId(), CooldownType.PLAYER_PVP, 3)) {
+            Messages.EVENT_PLAYER_PVP.send(event.getDamager());
         }
     }
 }
