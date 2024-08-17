@@ -30,7 +30,7 @@ import java.util.logging.Level;
 
 public class DeluxeHubPlugin extends JavaPlugin {
 
-    private static final int BSTATS_ID = 3151;
+    private static final int BSTATS_ID = 23061;
 
     private ConfigManager configManager;
     private ActionManager actionManager;
@@ -43,12 +43,16 @@ public class DeluxeHubPlugin extends JavaPlugin {
     public void onEnable() {
         long start = System.currentTimeMillis();
 
-        getLogger().log(Level.INFO, " _   _            _          _    _ ");
-        getLogger().log(Level.INFO, "| \\ |_ |  | | \\/ |_ |_| | | |_)   _)");
-        getLogger().log(Level.INFO, "|_/ |_ |_ |_| /\\ |_ | | |_| |_)   _)");
+        getLogger().log(Level.INFO, " ··························································································");
+        getLogger().log(Level.INFO, " : ____       _                _   _       _     ____      _                 _          _ :");
+        getLogger().log(Level.INFO, " :|  _ \\  ___| |_   ___  _____| | | |_   _| |__ |  _ \\ ___| | ___   __ _  __| | ___  __| |:");
+        getLogger().log(Level.INFO, " :| | | |/ _ \\ | | | \\ \\/ / _ \\ |_| | | | | '_ \\| |_) / _ \\ |/ _ \\ / _` |/ _` |/ _ \\/ _` |:");
+        getLogger().log(Level.INFO, " :| |_| |  __/ | |_| |>  <  __/  _  | |_| | |_) |  _ <  __/ | (_) | (_| | (_| |  __/ (_| |:");
+        getLogger().log(Level.INFO, " :|____/ \\___|_|\\__,_/_/\\_\\___|_| |_|\\__,_|_.__/|_| \\_\\___|_|\\___/ \\__,_|\\__,_|\\___|\\__,_|:");
+        getLogger().log(Level.INFO, " ··························································································");
         getLogger().log(Level.INFO, "");
         getLogger().log(Level.INFO, "Version: " + getDescription().getVersion());
-        getLogger().log(Level.INFO, "Author: ItsLewizzz");
+        getLogger().log(Level.INFO, "Author: Strafbefehl and ItsLewizzz (Old Developer)");
         getLogger().log(Level.INFO, "");
 
         // Check if using Spigot
@@ -56,7 +60,7 @@ public class DeluxeHubPlugin extends JavaPlugin {
             Class.forName("org.spigotmc.SpigotConfig");
         } catch (ClassNotFoundException ex) {
             getLogger().severe("============= SPIGOT NOT DETECTED =============");
-            getLogger().severe("DeluxeHub requires Spigot to run, you can download");
+            getLogger().severe("DeluxeHubReloaded requires Spigot to run, you can download");
             getLogger().severe("Spigot here: https://www.spigotmc.org/wiki/spigot-installation/.");
             getLogger().severe("The plugin will now disable.");
             getLogger().severe("============= SPIGOT NOT DETECTED =============");
