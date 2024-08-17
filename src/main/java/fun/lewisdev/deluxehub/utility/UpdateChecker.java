@@ -28,7 +28,7 @@ public class UpdateChecker {
     private final String localPluginVersion;
     private String spigotPluginVersion;
 
-    private static final int ID = 49425;
+    private static final int ID = 118904;
     private static final Permission UPDATE_PERM = new Permission(Permissions.UPDATE_NOTIFICATION.getPermission(), PermissionDefault.TRUE);
     private static final long CHECK_INTERVAL = 12_000;
 
@@ -54,7 +54,7 @@ public class UpdateChecker {
 
                     if (localPluginVersion.equals(spigotPluginVersion)) return;
 
-                    plugin.getLogger().info("An update for DeluxeHub (v%VERSION%) is available at:".replace("%VERSION%", spigotPluginVersion));
+                    plugin.getLogger().info("An update for DeluxeHubReloaded (v%VERSION%) is available at:".replace("%VERSION%", spigotPluginVersion));
                     plugin.getLogger().info("https://www.spigotmc.org/resources/" + ID);
 
                     Bukkit.getScheduler().runTask(plugin, () -> Bukkit.getPluginManager().registerEvents(new Listener() {
