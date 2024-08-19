@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://i.imgur.com/sJafO6B.png" alt="Header">
+  <img src="https://i.imgur.com/5tFaSAW.png" alt="Header">
   <p align="center">
     DeluxeHub is the all-in-one hub server solution compacting a large amount of hub essentials into one plugin.
     <br />
