@@ -47,7 +47,17 @@ public class LobbySpawn extends Module {
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if (spawnJoin && location != null) player.teleport(location);
+        if(!player.hasPlayedBefore()) {
+            Bukkit.getScheduler().runTaskLater(getPlugin(), new Runnable() {
+                @Override
+                public void run() {
+                    if (spawnJoin && location != null) player.teleport(location);
+                }
+            }, 2L);
+        } else {
+            if (spawnJoin && location != null) player.teleport(location);
+        }
+
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
