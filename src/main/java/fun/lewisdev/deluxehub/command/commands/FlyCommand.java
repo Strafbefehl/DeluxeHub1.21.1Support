@@ -10,7 +10,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class FlyCommand {
+
+    public static Map<UUID, Boolean> allowPlayerFly = new HashMap<>();
 
     public FlyCommand(DeluxeHubPlugin plugin) {
     }
@@ -33,12 +39,15 @@ public class FlyCommand {
 
             Player player = (Player) sender;
 
-            if (player.getAllowFlight()) {
+            if (allowPlayerFly.get(player.getUniqueId())) {
                 Messages.FLIGHT_DISABLE.send(player);
                 toggleFlight(player, false);
+                allowPlayerFly.remove(player.getUniqueId());
+                player.setAllowFlight(true);
             } else {
                 Messages.FLIGHT_ENABLE.send(player);
                 toggleFlight(player, true);
+                allowPlayerFly.put(player.getUniqueId(), true);
             }
         } else if (args.argsLength() == 1) {
             if (!(sender.hasPermission(Permissions.COMMAND_FLIGHT_OTHERS.getPermission()))) {
