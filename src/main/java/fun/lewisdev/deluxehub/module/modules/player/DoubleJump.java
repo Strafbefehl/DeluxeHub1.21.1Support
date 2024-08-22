@@ -2,6 +2,7 @@ package fun.lewisdev.deluxehub.module.modules.player;
 
 import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.Permissions;
+import fun.lewisdev.deluxehub.command.commands.FlyCommand;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.config.Messages;
 import fun.lewisdev.deluxehub.cooldown.CooldownType;
@@ -55,7 +56,9 @@ public class DoubleJump extends Module {
         Player player = event.getPlayer();
 
         // Perform checks
-        if (player.hasPermission(new Permission(Permissions.DOUBLE_JUMP_BYPASS.getPermission(), PermissionDefault.FALSE))) return;
+        //if (player.hasPermission(new Permission(Permissions.DOUBLE_JUMP_BYPASS.getPermission(), PermissionDefault.FALSE))) return; Useless lol
+        if (FlyCommand.allowPlayerFly.putIfAbsent(player.getUniqueId(), false) == null);
+        if (FlyCommand.allowPlayerFly.get(player.getUniqueId())) return;
         else if (inDisabledWorld(player.getLocation())) return;
         else if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) return;
         else if (!event.isFlying()) return;
