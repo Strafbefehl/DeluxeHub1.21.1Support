@@ -42,7 +42,7 @@ public class FlyCommand {
             if (allowPlayerFly.get(player.getUniqueId())) {
                 Messages.FLIGHT_DISABLE.send(player);
                 toggleFlight(player, false);
-                allowPlayerFly.remove(player.getUniqueId());
+                allowPlayerFly.put(player.getUniqueId(), false);
                 player.setAllowFlight(true);
             } else {
                 Messages.FLIGHT_ENABLE.send(player);
