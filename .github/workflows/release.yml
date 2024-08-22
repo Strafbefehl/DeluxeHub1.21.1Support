@@ -2,55 +2,62 @@ name: Build and Release All Branches
 
 on:
   workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'The version number for the release (e.g., 1.0.0)'
+        required: true
 
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Fetch all history for all branches
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0  # Fetch all history for all branches
 
-      - name: Get all branches
-        run: |
-          git fetch --all
-          git branch -r | grep -v '\->' | sed 's/origin\///' > branches.txt
-        shell: bash
+    - name: Get all branches
+      run: |
+        git fetch --all
+        git branch -r | grep -v '\->' | sed 's/origin\///' > branches.txt
+      shell: bash
 
-      - name: Compile and Package Each Branch
-        run: |
-          while IFS= read -r branch
-          do
-            echo "Processing branch: $branch"
-            git checkout $branch
-            mvn clean package -DskipTests
-          done < branches.txt
-        shell: bash
+    - name: Compile and Package Each Branch
+      run: |
+        while IFS= read -r branch
+        do
+          echo "Processing branch: $branch"
+          git checkout $branch
+          mvn clean package -DskipTests
+        done < branches.txt
+      shell: bash
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        with:
-          tag_name: ${{ github.event.inputs.release_tag }}
-          release_name: ${{ github.event.inputs.release_name }}
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      with:
+        tag_name: ${{ github.event.inputs.release_tag }}
+        release_name: "DeluxeHub - v${{ github.event.inputs.release_version }}"
+        body: |
+          Feel free to join our discord if you need help! :)
+          https://discord.gg/uQkg8ZeHzK
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload Release Assets
-        run: |
-          while IFS= read -r branch
-          do
-            for file in target/*.jar; do
-              if [ -f "$file" ]; then
-                echo "Uploading $file from branch $branch"
-                gh release upload ${{ github.event.inputs.release_tag }} "$file" --clobber
-              fi
-            done
-          done < branches.txt
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
+    - name: Upload Release Assets
+      run: |
+        while IFS= read -r branch
+        do
+          for file in target/*.jar; do
+            if [ -f "$file" ]; then
+              echo "Uploading $file from branch $branch"
+              gh release upload ${{ github.event.inputs.release_tag }} "$file" --clobber
+            fi
+          done
+        done < branches.txt
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      shell: bash
