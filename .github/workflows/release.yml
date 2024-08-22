@@ -43,7 +43,7 @@ jobs:
       id: create_release
       uses: actions/create-release@v1
       with:
-        tag_name: ${{ github.event.inputs.release_tag }}
+        tag_name: "v${{ github.event.inputs.release_version }}"
         release_name: "DeluxeHub - v${{ github.event.inputs.release_version }}"
         body: |
           Feel free to join our discord if you need help! :)
@@ -60,7 +60,7 @@ jobs:
           for file in target/*.jar; do
             if [ -f "$file" ]; then
               echo "Uploading $file from branch $branch"
-              gh release upload ${{ github.event.inputs.release_tag }} "$file" --clobber
+              gh release upload "v${{ github.event.inputs.release_version }}" "$file" --clobber
             fi
           done
         done < branches.txt
