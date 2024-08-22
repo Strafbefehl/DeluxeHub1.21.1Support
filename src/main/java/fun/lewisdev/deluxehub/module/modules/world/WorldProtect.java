@@ -14,6 +14,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.ChiseledBookshelf;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -21,6 +23,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
@@ -90,8 +93,26 @@ public class WorldProtect extends Module {
             XMaterial.OAK_SIGN.parseMaterial(),
             XMaterial.CHEST_MINECART.parseMaterial(),
             XMaterial.OAK_DOOR.parseMaterial(),
+            XMaterial.ACACIA_TRAPDOOR.parseMaterial(),
+            XMaterial.BAMBOO_TRAPDOOR.parseMaterial(),
+            XMaterial.BIRCH_TRAPDOOR.parseMaterial(),
+            XMaterial.CHERRY_TRAPDOOR.parseMaterial(),
+            XMaterial.COPPER_TRAPDOOR.parseMaterial(),
+            XMaterial.CRIMSON_TRAPDOOR.parseMaterial(),
+            XMaterial.DARK_OAK_TRAPDOOR.parseMaterial(),
+            XMaterial.EXPOSED_COPPER_TRAPDOOR.parseMaterial(),
+            XMaterial.IRON_TRAPDOOR.parseMaterial(),
+            XMaterial.JUNGLE_TRAPDOOR.parseMaterial(),
+            XMaterial.MANGROVE_TRAPDOOR.parseMaterial(),
             XMaterial.OAK_TRAPDOOR.parseMaterial(),
-            XMaterial.TRAPPED_CHEST.parseMaterial(),
+            XMaterial.OXIDIZED_COPPER_TRAPDOOR.parseMaterial(),
+            XMaterial.SPRUCE_TRAPDOOR.parseMaterial(),
+            XMaterial.WARPED_TRAPDOOR.parseMaterial(),
+            XMaterial.WAXED_COPPER_TRAPDOOR.parseMaterial(),
+            XMaterial.WAXED_EXPOSED_COPPER_TRAPDOOR.parseMaterial(),
+            XMaterial.WAXED_OXIDIZED_COPPER_TRAPDOOR.parseMaterial(),
+            XMaterial.WAXED_WEATHERED_COPPER_TRAPDOOR.parseMaterial(),
+            XMaterial.WEATHERED_COPPER_TRAPDOOR.parseMaterial(),
             XMaterial.OAK_BUTTON.parseMaterial(),
             XMaterial.OAK_DOOR.parseMaterial());
 
@@ -382,4 +403,21 @@ public class WorldProtect extends Module {
 
         event.setCancelled(true);
     }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        if (event.getPlayer().hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            Block clickedBlock = event.getClickedBlock();
+            if (clickedBlock != null && clickedBlock.getType() == Material.CHISELED_BOOKSHELF) {
+                event.setCancelled(true);
+
+
+                if (tryCooldown(event.getPlayer().getUniqueId(), CooldownType.BLOCK_INTERACT, 3)) {
+                    Messages.EVENT_BLOCK_INTERACT.send(event.getPlayer());
+                }
+            }
+        }
+    }
+
 }
