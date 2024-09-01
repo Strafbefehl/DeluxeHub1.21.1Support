@@ -38,7 +38,7 @@ public class FlyCommand {
             }
 
             Player player = (Player) sender;
-
+            if (allowPlayerFly.putIfAbsent(player.getUniqueId(), false) == null);
             if (allowPlayerFly.get(player.getUniqueId())) {
                 Messages.FLIGHT_DISABLE.send(player);
                 toggleFlight(player, false);
