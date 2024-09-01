@@ -29,7 +29,7 @@ public class UpdateChecker {
     private String spigotPluginVersion;
 
     private static final int ID = 118904;
-    private static final Permission UPDATE_PERM = new Permission(Permissions.UPDATE_NOTIFICATION.getPermission(), PermissionDefault.TRUE);
+    private static final Permission UPDATE_PERM = new Permission(Permissions.UPDATE_NOTIFICATION.getPermission(), PermissionDefault.FALSE);
     private static final long CHECK_INTERVAL = 12_000;
 
     public UpdateChecker(JavaPlugin plugin) {
