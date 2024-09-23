@@ -3,9 +3,11 @@ package fun.lewisdev.deluxehub.inventory;
 import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.inventory.inventories.CustomGUI;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import javax.naming.Name;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +29,8 @@ public class InventoryManager {
         loadCustomMenus();
 
         inventories.values().forEach(AbstractInventory::onEnable);
+
+		NamespacedKey cguiKey = new NamespacedKey(plugin, "dhub.cgui.playerhead");
 
         plugin.getServer().getPluginManager().registerEvents(new InventoryListener(), plugin);
     }
