@@ -3,10 +3,7 @@ package fun.lewisdev.deluxehub.utility;
 import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.hook.hooks.head.HeadHook;
 import fun.lewisdev.deluxehub.utility.universal.XMaterial;
-import org.bukkit.Color;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Registry;
+import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -15,6 +12,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +47,16 @@ public class ItemStackBuilder {
 
         if (section.contains("username") && player != null) {
             builder.setSkullOwner(section.getString("username").replace("%player%", player.getName()));
-        }
+        }else if(section.contains("username") && player == null){
+			if(section.getString("username").equalsIgnoreCase("%player%")){
+				ItemMeta meta = item.getItemMeta();
+				if(meta != null){
+					PersistentDataContainer dataContainer = meta.getPersistentDataContainer();
+					dataContainer.set(NamespacedKey.fromString("dhub.cgui.playerhead"), PersistentDataType.BOOLEAN, true);
+					item.setItemMeta(meta);
+				}
+			}
+		}
 
         if (section.contains("display_name")) {
             if (player != null) builder.withName(section.getString("display_name"), player);
@@ -116,9 +124,13 @@ public class ItemStackBuilder {
     public ItemStackBuilder setSkullOwner(String owner) {
         try {
             SkullMeta im = (SkullMeta) ITEM_STACK.getItemMeta();
-            im.setOwner(owner);
+			if(im != null) {
+				if (Bukkit.getPlayer(owner) != null) {
+					im.setOwnerProfile(Bukkit.getPlayer(owner).getPlayerProfile());
+				}
+			}
             ITEM_STACK.setItemMeta(im);
-        } catch (ClassCastException expected) {
+        } catch (ClassCastException ignored) {
         }
         return this;
     }
