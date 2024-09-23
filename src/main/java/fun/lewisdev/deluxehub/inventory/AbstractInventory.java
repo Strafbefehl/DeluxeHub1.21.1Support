@@ -3,10 +3,8 @@ package fun.lewisdev.deluxehub.inventory;
 import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.utility.ItemStackBuilder;
 import fun.lewisdev.deluxehub.utility.universal.XMaterial;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,7 +15,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.profile.PlayerProfile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +22,9 @@ import java.util.UUID;
 
 public abstract class AbstractInventory implements Listener {
 
-    private DeluxeHubPlugin plugin;
+    private final DeluxeHubPlugin plugin;
     private boolean refreshEnabled = false;
-    private List<UUID> openInventories;
+    private final List<UUID> openInventories;
 
     public AbstractInventory(DeluxeHubPlugin plugin) {
         this.plugin = plugin;

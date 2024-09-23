@@ -7,7 +7,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import javax.naming.Name;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
