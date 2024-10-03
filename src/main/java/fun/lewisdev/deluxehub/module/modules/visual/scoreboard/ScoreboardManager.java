@@ -15,6 +15,9 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.util.*;
 
+import static fun.lewisdev.deluxehub.utility.color.patterns.HexUtils.colorize;
+import static fun.lewisdev.deluxehub.utility.color.patterns.HexUtils.translateHexColorCodes;
+
 public class ScoreboardManager extends Module {
 
     private int scoreTask;
@@ -68,7 +71,7 @@ public class ScoreboardManager extends Module {
         helper.setTitle(title);
 
         for (String text : this.lines) {
-            helper.setSlot(lines, text);
+            helper.setSlot(lines, colorize(translateHexColorCodes(text)));
             lines--;
         }
 
