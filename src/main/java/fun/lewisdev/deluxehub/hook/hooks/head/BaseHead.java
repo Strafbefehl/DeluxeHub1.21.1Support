@@ -1,17 +1,23 @@
 package fun.lewisdev.deluxehub.hook.hooks.head;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
 import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.hook.PluginHook;
 import fun.lewisdev.deluxehub.utility.universal.XMaterial;
+import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.profile.PlayerProfile;
 
-import java.lang.reflect.Field;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BaseHead implements PluginHook, HeadHook {
 
@@ -26,20 +32,24 @@ public class BaseHead implements PluginHook, HeadHook {
     public ItemStack getHead(String data) {
         if (cache.containsKey(data)) return cache.get(data);
 
-        ItemStack head = XMaterial.PLAYER_HEAD.parseItem();
-        SkullMeta meta = (SkullMeta) head.getItemMeta();
-        GameProfile profile = new GameProfile(UUID.randomUUID(), "");
-        profile.getProperties().put("textures", new Property("textures", data));
-        Field profileField;
-        try {
-            profileField = meta.getClass().getDeclaredField("profile");
-            profileField.setAccessible(true);
-            profileField.set(meta, profile);
-        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-            e.printStackTrace();
-        }
-        head.setItemMeta(meta);
-        cache.put(data, head);
-        return head;
+		String decodedBase = new String(Base64.getDecoder().decode(data), StandardCharsets.UTF_8);
+		Pattern pattern = Pattern.compile("\"url\"\\s*:\\s*\"([^\"]+)\"");
+		Matcher matcher = pattern.matcher(decodedBase);
+
+		ItemStack head = XMaterial.PLAYER_HEAD.parseItem();
+		SkullMeta meta = (SkullMeta) head.getItemMeta();
+		if(matcher.find()){
+			PlayerProfile playerProfile = Bukkit.createPlayerProfile(UUID.randomUUID(), "");
+			try{
+				URL url = URI.create(matcher.group(1)).toURL();
+				playerProfile.getTextures().setSkin(url);
+				meta.setOwnerProfile(playerProfile);
+				head.setItemMeta(meta);
+			}catch(IllegalArgumentException | SecurityException | MalformedURLException e){
+				e.printStackTrace();
+			}
+		}
+		cache.put(data, head);
+		return head;
     }
 }
